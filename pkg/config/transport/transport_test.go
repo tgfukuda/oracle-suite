@@ -25,9 +25,9 @@ import (
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/local"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p"
 )
 
 func TestTransport_P2P_EmptyConfig(t *testing.T) {
@@ -49,7 +49,7 @@ func TestTransport_P2P_EmptyConfig(t *testing.T) {
 		},
 	}
 
-	p2pTransportFactory = func(cfg p2p.Config) (transport.Transport, error) {
+	p2pTransportFactory = func(cfg libp2p.Config) (transport.Transport, error) {
 		assert.NotNil(t, cfg.PeerPrivKey)
 		assert.Len(t, cfg.ListenAddrs, 0)
 		assert.Len(t, cfg.BootstrapAddrs, 0)
@@ -100,7 +100,7 @@ func TestTransport_P2P_CustomValues(t *testing.T) {
 		},
 	}
 
-	p2pTransportFactory = func(cfg p2p.Config) (transport.Transport, error) {
+	p2pTransportFactory = func(cfg libp2p.Config) (transport.Transport, error) {
 		assert.NotNil(t, cfg.PeerPrivKey)
 		assert.Equal(t, listenAddrs, cfg.ListenAddrs)
 		assert.Equal(t, bootstrapAddrs, cfg.BootstrapAddrs)
@@ -146,7 +146,7 @@ func TestTransport_P2P_InvalidSeed(t *testing.T) {
 	signer := &mocks.Signer{}
 	logger := null.New()
 
-	p2pTransportFactory = func(cfg p2p.Config) (transport.Transport, error) {
+	p2pTransportFactory = func(cfg libp2p.Config) (transport.Transport, error) {
 		return local.New([]byte("test"), 0, nil), nil
 	}
 

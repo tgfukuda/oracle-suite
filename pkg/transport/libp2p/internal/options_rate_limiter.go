@@ -24,7 +24,7 @@ import (
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	"golang.org/x/time/rate"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal/sets"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p/internal/sets"
 
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 )

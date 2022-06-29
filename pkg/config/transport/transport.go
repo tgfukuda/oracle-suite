@@ -30,16 +30,16 @@ import (
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p"
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/crypto/ethkey"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p/crypto/ethkey"
 )
 
 const LibP2P = "libp2p"
 const LibSSB = "ssb"
 const DefaultTransport = LibP2P
 
-var p2pTransportFactory = func(cfg p2p.Config) (transport.Transport, error) {
-	return p2p.New(cfg)
+var p2pTransportFactory = func(cfg libp2p.Config) (transport.Transport, error) {
+	return libp2p.New(cfg)
 }
 
 type Transport struct {
@@ -88,8 +88,8 @@ func (c *Transport) Configure(d Dependencies, t map[string]transport.Message) (t
 		if err != nil {
 			return nil, err
 		}
-		cfg := p2p.Config{
-			Mode:             p2p.ClientMode,
+		cfg := libp2p.Config{
+			Mode:             libp2p.ClientMode,
 			PeerPrivKey:      peerPrivKey,
 			Topics:           t,
 			MessagePrivKey:   ethkey.NewPrivKey(d.Signer),
@@ -117,8 +117,8 @@ func (c *Transport) ConfigureP2PBoostrap(d BootstrapDependencies) (transport.Tra
 	if err != nil {
 		return nil, err
 	}
-	cfg := p2p.Config{
-		Mode:             p2p.BootstrapMode,
+	cfg := libp2p.Config{
+		Mode:             libp2p.BootstrapMode,
 		PeerPrivKey:      peerPrivKey,
 		ListenAddrs:      c.P2P.ListenAddrs,
 		BootstrapAddrs:   c.P2P.BootstrapAddrs,

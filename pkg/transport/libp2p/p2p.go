@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package p2p
+package libp2p
 
 import (
 	"context"
@@ -30,9 +30,9 @@ import (
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p/crypto/ethkey"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/libp2p/internal"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/crypto/ethkey"
-	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal"
 )
 
 const LoggerTag = "P2P"
