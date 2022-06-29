@@ -21,11 +21,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/config"
-	loggerConfig "github.com/chronicleprotocol/oracle-suite/internal/config/logger"
-	transportConfig "github.com/chronicleprotocol/oracle-suite/internal/config/transport"
-	"github.com/chronicleprotocol/oracle-suite/internal/supervisor"
-	"github.com/chronicleprotocol/oracle-suite/internal/sysmon"
+	"github.com/chronicleprotocol/oracle-suite/pkg/config"
+	loggerConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/logger"
+	transportConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/transport"
+	"github.com/chronicleprotocol/oracle-suite/pkg/supervisor"
+	"github.com/chronicleprotocol/oracle-suite/pkg/sysmon"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p"
 )
 

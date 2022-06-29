@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/gofer/marshal"
+	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/logrus/flag"
 )
 

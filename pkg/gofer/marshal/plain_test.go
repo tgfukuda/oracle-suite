@@ -21,8 +21,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/gofer/marshal/testutil"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal/testutil"
 )
 
 func TestPlain_Nodes(t *testing.T) {

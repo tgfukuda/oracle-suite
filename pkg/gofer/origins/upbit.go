@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 )
 
 const upbitBaseURL = "https://api.upbit.com"

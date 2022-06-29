@@ -19,7 +19,6 @@ import (
 	"context"
 	"os"
 	"os/signal"
-	"syscall"
 
 	"github.com/spf13/cobra"
 
@@ -34,7 +33,7 @@ func NewPairsCmd(opts *options) *cobra.Command {
 		Short:   "List all supported asset pairs",
 		Long:    `List all supported asset pairs.`,
 		RunE: func(_ *cobra.Command, args []string) (err error) {
-			ctx, ctxCancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+			ctx, ctxCancel := signal.NotifyContext(context.Background(), os.Interrupt)
 			sup, gof, mar, err := PrepareClientServices(ctx, opts)
 			if err != nil {
 				return err

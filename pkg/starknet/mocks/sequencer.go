@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/mock"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/starknet"
+	"github.com/chronicleprotocol/oracle-suite/pkg/starknet"
 )
 
 type Sequencer struct {

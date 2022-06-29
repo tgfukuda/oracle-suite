@@ -21,7 +21,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 )
 
 // Define the suite, and absorb the built-in basic suite

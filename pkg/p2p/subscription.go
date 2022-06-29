@@ -22,7 +22,7 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/p2p/sets"
+	"github.com/chronicleprotocol/oracle-suite/pkg/p2p/sets"
 )
 
 var ErrNilMessage = errors.New("message is nil")

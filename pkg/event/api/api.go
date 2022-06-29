@@ -26,9 +26,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/httpserver"
-	"github.com/chronicleprotocol/oracle-suite/internal/httpserver/middleware"
 	"github.com/chronicleprotocol/oracle-suite/pkg/event/store"
+	"github.com/chronicleprotocol/oracle-suite/pkg/httpserver"
+	"github.com/chronicleprotocol/oracle-suite/pkg/httpserver/middleware"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 )

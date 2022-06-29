@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 )
 
 const okexBaseURL = "https://www.okex.com"

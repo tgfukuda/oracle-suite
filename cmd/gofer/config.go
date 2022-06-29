@@ -20,14 +20,14 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/config"
-	ethereumConfig "github.com/chronicleprotocol/oracle-suite/internal/config/ethereum"
-	goferConfig "github.com/chronicleprotocol/oracle-suite/internal/config/gofer"
-	loggerConfig "github.com/chronicleprotocol/oracle-suite/internal/config/logger"
-	"github.com/chronicleprotocol/oracle-suite/internal/gofer/marshal"
-	"github.com/chronicleprotocol/oracle-suite/internal/supervisor"
-	"github.com/chronicleprotocol/oracle-suite/internal/sysmon"
+	"github.com/chronicleprotocol/oracle-suite/pkg/config"
+	ethereumConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/ethereum"
+	goferConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/gofer"
+	loggerConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/logger"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
+	"github.com/chronicleprotocol/oracle-suite/pkg/supervisor"
+	"github.com/chronicleprotocol/oracle-suite/pkg/sysmon"
 )
 
 type Config struct {

@@ -22,9 +22,9 @@ import (
 	"net/http"
 	"net/rpc"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/httpserver"
 	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
+	"github.com/chronicleprotocol/oracle-suite/pkg/httpserver"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 )

@@ -23,7 +23,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	ethereumConfig "github.com/chronicleprotocol/oracle-suite/internal/config/ethereum"
+	ethereumConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum/geth"
 	"github.com/chronicleprotocol/oracle-suite/pkg/event/publisher"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"

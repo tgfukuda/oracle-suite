@@ -24,8 +24,8 @@ import (
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	"golang.org/x/time/rate"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/p2p/sets"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	"github.com/chronicleprotocol/oracle-suite/pkg/p2p/sets"
 )
 
 // RateLimiterConfig is a configuration for the RateLimiter option.

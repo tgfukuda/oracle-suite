@@ -359,7 +359,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph"

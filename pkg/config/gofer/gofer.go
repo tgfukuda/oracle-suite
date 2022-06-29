@@ -23,7 +23,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
+
 	pkgEthereum "github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph"

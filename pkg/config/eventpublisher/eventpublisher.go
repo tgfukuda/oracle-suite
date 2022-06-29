@@ -24,14 +24,14 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	ethereumConfig "github.com/chronicleprotocol/oracle-suite/internal/config/ethereum"
-	starknetClient "github.com/chronicleprotocol/oracle-suite/internal/starknet"
+	ethereumConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum/geth"
 	"github.com/chronicleprotocol/oracle-suite/pkg/event/publisher"
 	publisherEthereum "github.com/chronicleprotocol/oracle-suite/pkg/event/publisher/ethereum"
 	publisherStarknet "github.com/chronicleprotocol/oracle-suite/pkg/event/publisher/starknet"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	starknetClient "github.com/chronicleprotocol/oracle-suite/pkg/starknet"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 )
 

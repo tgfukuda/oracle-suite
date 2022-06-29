@@ -29,7 +29,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/dump"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/dump"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
 )
 

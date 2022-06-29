@@ -19,7 +19,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/chronicleprotocol/oracle-suite/internal/query"
+	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
+
 	pkgEthereum "github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/origins"
 )
