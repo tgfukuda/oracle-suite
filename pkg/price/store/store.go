@@ -17,7 +17,7 @@ package store
 
 import "context"
 
-type Datastore interface {
+type Store interface {
 	Start(ctx context.Context) error
 	Wait() chan error
 	Prices() PriceStore

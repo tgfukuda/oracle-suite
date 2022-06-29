@@ -51,7 +51,7 @@ var (
 	}
 	agent     *Agent
 	spire     *Client
-	dat       store.Datastore
+	dat       store.Store
 	ctxCancel context.CancelFunc
 )
 

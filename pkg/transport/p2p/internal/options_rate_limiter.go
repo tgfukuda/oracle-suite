@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package p2p
+package internal
 
 import (
 	"context"
@@ -24,8 +24,9 @@ import (
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 	"golang.org/x/time/rate"
 
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal/sets"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	"github.com/chronicleprotocol/oracle-suite/pkg/p2p/sets"
 )
 
 // RateLimiterConfig is a configuration for the RateLimiter option.

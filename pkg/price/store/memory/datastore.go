@@ -80,7 +80,7 @@ func NewDatastore(cfg Config) (*Datastore, error) {
 	}, nil
 }
 
-// Start implements the store.Datastore interface.
+// Start implements the store.Store interface.
 func (c *Datastore) Start(ctx context.Context) error {
 	c.log.Info("Starting")
 	if ctx == nil {
@@ -91,12 +91,12 @@ func (c *Datastore) Start(ctx context.Context) error {
 	return c.collectorLoop()
 }
 
-// Wait implements the store.Datastore interface.
+// Wait implements the store.Store interface.
 func (c *Datastore) Wait() chan error {
 	return c.waitCh
 }
 
-// Prices implements the store.Datastore interface.
+// Prices implements the store.Store interface.
 func (c *Datastore) Prices() store.PriceStore {
 	return c.priceStore
 }

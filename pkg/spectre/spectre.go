@@ -63,7 +63,7 @@ type Spectre struct {
 	waitCh chan error
 
 	signer    ethereum.Signer
-	datastore store.Datastore
+	datastore store.Store
 	interval  time.Duration
 	log       log.Logger
 	pairs     map[string]*Pair
@@ -72,7 +72,7 @@ type Spectre struct {
 type Config struct {
 	Signer ethereum.Signer
 	// Datastore provides prices for Spectre.
-	Datastore store.Datastore
+	Datastore store.Store
 	// Interval describes how often we should try to update Oracles.
 	Interval time.Duration
 	// Pairs is the list supported pairs by Spectre with their configuration.

@@ -33,7 +33,7 @@ var spectreFactory = func(cfg spectre.Config) (*spectre.Spectre, error) {
 	return spectre.NewSpectre(cfg)
 }
 
-var datastoreFactory = func(cfg datastoreMemory.Config) (store.Datastore, error) {
+var datastoreFactory = func(cfg datastoreMemory.Config) (store.Store, error) {
 	return datastoreMemory.NewDatastore(cfg)
 }
 
@@ -51,7 +51,7 @@ type Medianizer struct {
 
 type Dependencies struct {
 	Signer         ethereum.Signer
-	Datastore      store.Datastore
+	Datastore      store.Store
 	EthereumClient ethereum.Client
 	Feeds          []ethereum.Address
 	Logger         log.Logger
@@ -83,7 +83,7 @@ func (c *Spectre) ConfigureSpectre(d Dependencies) (*spectre.Spectre, error) {
 	return spectreFactory(cfg)
 }
 
-func (c *Spectre) ConfigureDatastore(d DatastoreDependencies) (store.Datastore, error) {
+func (c *Spectre) ConfigureDatastore(d DatastoreDependencies) (store.Store, error) {
 	cfg := datastoreMemory.Config{
 		Signer:    d.Signer,
 		Transport: d.Transport,

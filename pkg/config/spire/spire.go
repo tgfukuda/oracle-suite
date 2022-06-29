@@ -34,7 +34,7 @@ var spireClientFactory = func(cfg spire.ClientConfig) (*spire.Client, error) {
 	return spire.NewClient(cfg)
 }
 
-var datastoreFactory = func(cfg storeMemory.Config) (store.Datastore, error) {
+var datastoreFactory = func(cfg storeMemory.Config) (store.Store, error) {
 	return storeMemory.NewDatastore(cfg)
 }
 
@@ -51,7 +51,7 @@ type RPC struct {
 type AgentDependencies struct {
 	Signer    ethereum.Signer
 	Transport transport.Transport
-	Datastore store.Datastore
+	Datastore store.Store
 	Feeds     []ethereum.Address
 	Logger    log.Logger
 }
@@ -88,7 +88,7 @@ func (c *Spire) ConfigureClient(d ClientDependencies) (*spire.Client, error) {
 	})
 }
 
-func (c *Spire) ConfigureDatastore(d DatastoreDependencies) (store.Datastore, error) {
+func (c *Spire) ConfigureDatastore(d DatastoreDependencies) (store.Store, error) {
 	cfg := storeMemory.Config{
 		Signer:    d.Signer,
 		Transport: d.Transport,

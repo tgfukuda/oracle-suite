@@ -25,14 +25,14 @@ import (
 
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	"github.com/chronicleprotocol/oracle-suite/pkg/p2p"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/crypto/ethkey"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal"
 )
 
-func messageValidator(topics map[string]transport.Message, logger log.Logger) p2p.Options {
-	return func(n *p2p.Node) error {
+func messageValidator(topics map[string]transport.Message, logger log.Logger) internal.Options {
+	return func(n *internal.Node) error {
 		// Validator actually have two roles in the libp2p: it unmarshalls messages
 		// and then validates them. Unmarshalled message is stored in the
 		// ValidatorData field which was created for this purpose:
@@ -59,8 +59,8 @@ func messageValidator(topics map[string]transport.Message, logger log.Logger) p2
 	}
 }
 
-func feederValidator(feeders []ethereum.Address, logger log.Logger) p2p.Options {
-	return func(n *p2p.Node) error {
+func feederValidator(feeders []ethereum.Address, logger log.Logger) internal.Options {
+	return func(n *internal.Node) error {
 		n.AddValidator(func(ctx context.Context, topic string, id peer.ID, psMsg *pubsub.Message) pubsub.ValidationResult {
 			feedAddr := ethkey.PeerIDToAddress(psMsg.GetFrom())
 			feedAllowed := false
@@ -84,8 +84,8 @@ func feederValidator(feeders []ethereum.Address, logger log.Logger) p2p.Options 
 }
 
 // eventValidator adds a validator for event messages.
-func eventValidator(logger log.Logger) p2p.Options {
-	return func(n *p2p.Node) error {
+func eventValidator(logger log.Logger) internal.Options {
+	return func(n *internal.Node) error {
 		n.AddValidator(func(ctx context.Context, topic string, id peer.ID, psMsg *pubsub.Message) pubsub.ValidationResult {
 			eventMsg, ok := psMsg.ValidatorData.(*messages.Event)
 			if !ok {
@@ -111,8 +111,8 @@ func eventValidator(logger log.Logger) p2p.Options {
 
 // priceValidator adds a validator for price messages. The validator checks if
 // the price message is valid, and if the price is not older than 5 min.
-func priceValidator(signer ethereum.Signer, logger log.Logger) p2p.Options {
-	return func(n *p2p.Node) error {
+func priceValidator(signer ethereum.Signer, logger log.Logger) internal.Options {
+	return func(n *internal.Node) error {
 		n.AddValidator(func(ctx context.Context, topic string, id peer.ID, psMsg *pubsub.Message) pubsub.ValidationResult {
 			priceMsg, ok := psMsg.ValidatorData.(*messages.Price)
 			if !ok {

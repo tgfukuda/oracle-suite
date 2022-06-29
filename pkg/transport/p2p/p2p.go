@@ -29,10 +29,10 @@ import (
 
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	"github.com/chronicleprotocol/oracle-suite/pkg/p2p"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/crypto/ethkey"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal"
 )
 
 const LoggerTag = "P2P"
@@ -74,7 +74,7 @@ var defaultListenAddrs = []string{"/ip4/0.0.0.0/tcp/0"}
 // interface.
 type P2P struct {
 	id     peer.ID
-	node   *p2p.Node
+	node   *internal.Node
 	mode   Mode
 	topics map[string]transport.Message
 	msgCh  map[string]chan transport.ReceivedMessage
@@ -163,24 +163,24 @@ func New(cfg Config) (*P2P, error) {
 	}
 
 	logger := cfg.Logger.WithField("tag", LoggerTag)
-	opts := []p2p.Options{
-		p2p.DialTimeout(connectionTimeout),
-		p2p.Logger(logger),
-		p2p.ConnectionLogger(),
-		p2p.PeerLogger(),
-		p2p.UserAgent(fmt.Sprintf("%s/%s", cfg.AppName, cfg.AppVersion)),
-		p2p.ListenAddrs(listenAddrs),
-		p2p.DirectPeers(directPeersAddrs),
-		p2p.Denylist(blockedAddrs),
-		p2p.ConnectionLimit(
+	opts := []internal.Options{
+		internal.DialTimeout(connectionTimeout),
+		internal.Logger(logger),
+		internal.ConnectionLogger(),
+		internal.PeerLogger(),
+		internal.UserAgent(fmt.Sprintf("%s/%s", cfg.AppName, cfg.AppVersion)),
+		internal.ListenAddrs(listenAddrs),
+		internal.DirectPeers(directPeersAddrs),
+		internal.Denylist(blockedAddrs),
+		internal.ConnectionLimit(
 			minConnections,
 			maxConnections,
 			5*time.Minute,
 		),
-		p2p.Monitor(),
+		internal.Monitor(),
 	}
 	if cfg.PeerPrivKey != nil {
-		opts = append(opts, p2p.PeerPrivKey(cfg.PeerPrivKey))
+		opts = append(opts, internal.PeerPrivKey(cfg.PeerPrivKey))
 	}
 
 	switch cfg.Mode {
@@ -194,9 +194,9 @@ func New(cfg Config) (*P2P, error) {
 			return nil, fmt.Errorf("P2P transport error: invalid event topic scoring parameters: %w", err)
 		}
 		opts = append(opts,
-			p2p.MessageLogger(),
-			p2p.RateLimiter(rateLimiterConfig(cfg)),
-			p2p.PeerScoring(peerScoreParams, thresholds, func(topic string) *pubsub.TopicScoreParams {
+			internal.MessageLogger(),
+			internal.RateLimiter(rateLimiterConfig(cfg)),
+			internal.PeerScoring(peerScoreParams, thresholds, func(topic string) *pubsub.TopicScoreParams {
 				if topic == messages.PriceMessageName {
 					return priceTopicScoreParams
 				}
@@ -211,19 +211,19 @@ func New(cfg Config) (*P2P, error) {
 			priceValidator(cfg.Signer, logger),
 		)
 		if cfg.MessagePrivKey != nil {
-			opts = append(opts, p2p.MessagePrivKey(cfg.MessagePrivKey))
+			opts = append(opts, internal.MessagePrivKey(cfg.MessagePrivKey))
 		}
 		if cfg.Discovery {
-			opts = append(opts, p2p.Discovery(bootstrapAddrs))
+			opts = append(opts, internal.Discovery(bootstrapAddrs))
 		}
 	case BootstrapMode:
 		opts = append(opts,
-			p2p.DisablePubSub(),
-			p2p.Discovery(bootstrapAddrs),
+			internal.DisablePubSub(),
+			internal.Discovery(bootstrapAddrs),
 		)
 	}
 
-	n, err := p2p.NewNode(opts...)
+	n, err := internal.NewNode(opts...)
 	if err != nil {
 		return nil, fmt.Errorf("P2P transport error, unable to initialize node: %w", err)
 	}
@@ -297,7 +297,7 @@ func (p *P2P) subscribe(topic string) error {
 	return nil
 }
 
-func (p *P2P) messagesLoop(topic string, sub *p2p.Subscription) {
+func (p *P2P) messagesLoop(topic string, sub *internal.Subscription) {
 	for {
 		nodeMsg, ok := <-sub.Next()
 		if !ok {
@@ -327,10 +327,10 @@ func strsToMaddrs(addrs []string) ([]core.Multiaddr, error) {
 	return maddrs, nil
 }
 
-func rateLimiterConfig(cfg Config) p2p.RateLimiterConfig {
+func rateLimiterConfig(cfg Config) internal.RateLimiterConfig {
 	bytesPerSecond := maxBytesPerSecond
 	burstSize := maxBytesPerSecond * priceUpdateInterval.Seconds()
-	return p2p.RateLimiterConfig{
+	return internal.RateLimiterConfig{
 		BytesPerSecond:      maxBytesPerSecond / float64(len(cfg.FeedersAddrs)),
 		BurstSize:           int(burstSize / float64(len(cfg.FeedersAddrs))),
 		RelayBytesPerSecond: bytesPerSecond,

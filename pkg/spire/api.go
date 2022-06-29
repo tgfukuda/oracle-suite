@@ -29,7 +29,7 @@ type Nothing = struct{}
 
 type API struct {
 	transport transport.Transport
-	datastore store.Datastore
+	datastore store.Store
 	signer    ethereum.Signer
 	log       log.Logger
 }

@@ -13,7 +13,7 @@
 //  You should have received a copy of the GNU Affero General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-package p2p
+package internal
 
 import (
 	"context"
@@ -22,7 +22,7 @@ import (
 	"github.com/libp2p/go-libp2p-core/peer"
 	pubsub "github.com/libp2p/go-libp2p-pubsub"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/p2p/sets"
+	"github.com/chronicleprotocol/oracle-suite/pkg/transport/p2p/internal/sets"
 )
 
 var ErrNilMessage = errors.New("message is nil")

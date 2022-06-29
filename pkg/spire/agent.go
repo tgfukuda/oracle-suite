@@ -40,7 +40,7 @@ type Agent struct {
 }
 
 type AgentConfig struct {
-	Datastore store.Datastore
+	Datastore store.Store
 	Transport transport.Transport
 	Signer    ethereum.Signer
 	Address   string
