@@ -20,7 +20,7 @@ import (
 	"os"
 
 	suite "github.com/chronicleprotocol/oracle-suite"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/marshal"
 )
 
 // exitCode to be returned by the application.

@@ -22,7 +22,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/oracle"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/oracle"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 )
 

@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/logrus/flag"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/marshal"
 )
 
 // These are the command options that can be set by CLI flags.

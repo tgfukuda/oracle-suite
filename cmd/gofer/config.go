@@ -24,8 +24,8 @@ import (
 	ethereumConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/ethereum"
 	goferConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/gofer"
 	loggerConfig "github.com/chronicleprotocol/oracle-suite/pkg/config/logger"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/marshal"
 	"github.com/chronicleprotocol/oracle-suite/pkg/supervisor"
 	"github.com/chronicleprotocol/oracle-suite/pkg/sysmon"
 )

@@ -22,10 +22,10 @@ import (
 	"net/http"
 	"net/rpc"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/httpserver"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 )
 
@@ -40,7 +40,7 @@ type Agent struct {
 }
 
 type AgentConfig struct {
-	Datastore datastore.Datastore
+	Datastore store.Datastore
 	Transport transport.Transport
 	Signer    ethereum.Signer
 	Address   string

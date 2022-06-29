@@ -16,10 +16,10 @@
 package spire
 
 import (
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
-	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/datastore/memory"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
+	storeMemory "github.com/chronicleprotocol/oracle-suite/pkg/price/store/memory"
 	"github.com/chronicleprotocol/oracle-suite/pkg/spire"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 )
@@ -34,8 +34,8 @@ var spireClientFactory = func(cfg spire.ClientConfig) (*spire.Client, error) {
 	return spire.NewClient(cfg)
 }
 
-var datastoreFactory = func(cfg datastoreMemory.Config) (datastore.Datastore, error) {
-	return datastoreMemory.NewDatastore(cfg)
+var datastoreFactory = func(cfg storeMemory.Config) (store.Datastore, error) {
+	return storeMemory.NewDatastore(cfg)
 }
 
 type Spire struct {
@@ -51,7 +51,7 @@ type RPC struct {
 type AgentDependencies struct {
 	Signer    ethereum.Signer
 	Transport transport.Transport
-	Datastore datastore.Datastore
+	Datastore store.Datastore
 	Feeds     []ethereum.Address
 	Logger    log.Logger
 }
@@ -88,15 +88,15 @@ func (c *Spire) ConfigureClient(d ClientDependencies) (*spire.Client, error) {
 	})
 }
 
-func (c *Spire) ConfigureDatastore(d DatastoreDependencies) (datastore.Datastore, error) {
-	cfg := datastoreMemory.Config{
+func (c *Spire) ConfigureDatastore(d DatastoreDependencies) (store.Datastore, error) {
+	cfg := storeMemory.Config{
 		Signer:    d.Signer,
 		Transport: d.Transport,
-		Pairs:     make(map[string]*datastoreMemory.Pair),
+		Pairs:     make(map[string]*storeMemory.Pair),
 		Logger:    d.Logger,
 	}
 	for _, name := range c.Pairs {
-		cfg.Pairs[name] = &datastoreMemory.Pair{Feeds: d.Feeds}
+		cfg.Pairs[name] = &storeMemory.Pair{Feeds: d.Feeds}
 	}
 	return datastoreFactory(cfg)
 }

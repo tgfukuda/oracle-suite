@@ -20,9 +20,9 @@ import (
 	"time"
 
 	ethereumMocks "github.com/chronicleprotocol/oracle-suite/pkg/ethereum/mocks"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph/nodes"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/origins"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/nodes"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/origins"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

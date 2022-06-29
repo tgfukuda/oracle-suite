@@ -24,7 +24,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore/memory/testutil"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store/memory/testutil"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 )
 

@@ -22,10 +22,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	"github.com/chronicleprotocol/oracle-suite/pkg/oracle"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/oracle"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
 )
 
 const LoggerTag = "SPECTRE"
@@ -63,7 +63,7 @@ type Spectre struct {
 	waitCh chan error
 
 	signer    ethereum.Signer
-	datastore datastore.Datastore
+	datastore store.Datastore
 	interval  time.Duration
 	log       log.Logger
 	pairs     map[string]*Pair
@@ -72,7 +72,7 @@ type Spectre struct {
 type Config struct {
 	Signer ethereum.Signer
 	// Datastore provides prices for Spectre.
-	Datastore datastore.Datastore
+	Datastore store.Datastore
 	// Interval describes how often we should try to update Oracles.
 	Interval time.Duration
 	// Pairs is the list supported pairs by Spectre with their configuration.

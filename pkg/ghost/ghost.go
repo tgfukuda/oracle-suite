@@ -22,11 +22,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/marshal"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/marshal"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	"github.com/chronicleprotocol/oracle-suite/pkg/oracle"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/oracle"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 )

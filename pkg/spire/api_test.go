@@ -26,12 +26,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
-	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/datastore/memory"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
+	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/price/store/memory"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
-	"github.com/chronicleprotocol/oracle-suite/pkg/oracle"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/oracle"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/local"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
@@ -50,7 +51,7 @@ var (
 	}
 	agent     *Agent
 	spire     *Client
-	dat       datastore.Datastore
+	dat       store.Datastore
 	ctxCancel context.CancelFunc
 )
 

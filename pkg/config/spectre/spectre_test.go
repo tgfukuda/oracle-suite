@@ -22,10 +22,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/datastore/memory"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	ethereumMocks "github.com/chronicleprotocol/oracle-suite/pkg/ethereum/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
+	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/price/store/memory"
 	"github.com/chronicleprotocol/oracle-suite/pkg/spectre"
 )
 

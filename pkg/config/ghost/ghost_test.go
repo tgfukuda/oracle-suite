@@ -24,8 +24,8 @@ import (
 
 	ethereumMocks "github.com/chronicleprotocol/oracle-suite/pkg/ethereum/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ghost"
-	goferMocks "github.com/chronicleprotocol/oracle-suite/pkg/gofer/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
+	goferMocks "github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/mocks"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/local"
 )
 

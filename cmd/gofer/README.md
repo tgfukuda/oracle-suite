@@ -361,11 +361,11 @@ import (
 
 	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph/feeder"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph/nodes"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/origins"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/feeder"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/nodes"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/origins"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
 )
 
@@ -396,7 +396,7 @@ func main() {
 ```
 
 The full documentation for Gofer library can be found
-here: https://pkg.go.dev/github.com/chronicleprotocol/oracle-suite/pkg/gofer
+here: https://pkg.go.dev/github.com/chronicleprotocol/oracle-suite/pkg/price/gofer
 
 ## License
 

@@ -18,9 +18,9 @@ package spire
 import (
 	"strings"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport/messages"
 )
@@ -29,7 +29,7 @@ type Nothing = struct{}
 
 type API struct {
 	transport transport.Transport
-	datastore datastore.Datastore
+	datastore store.Datastore
 	signer    ethereum.Signer
 	log       log.Logger
 }

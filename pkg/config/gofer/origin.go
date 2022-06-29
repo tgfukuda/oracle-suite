@@ -22,7 +22,7 @@ import (
 	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 
 	pkgEthereum "github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/origins"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/origins"
 )
 
 // averageFromBlocks is a list of blocks distances from the latest blocks from

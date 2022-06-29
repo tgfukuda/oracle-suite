@@ -26,13 +26,13 @@ import (
 	"github.com/chronicleprotocol/oracle-suite/pkg/util/query"
 
 	pkgEthereum "github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph/feeder"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/graph/nodes"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/origins"
-	"github.com/chronicleprotocol/oracle-suite/pkg/gofer/rpc"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/feeder"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/nodes"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/origins"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/rpc"
 )
 
 const defaultTTL = 60 * time.Second

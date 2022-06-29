@@ -18,11 +18,12 @@ package spectre
 import (
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/datastore"
-	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/datastore/memory"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/store"
+	datastoreMemory "github.com/chronicleprotocol/oracle-suite/pkg/price/store/memory"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/ethereum"
 	"github.com/chronicleprotocol/oracle-suite/pkg/log"
-	oracleGeth "github.com/chronicleprotocol/oracle-suite/pkg/oracle/geth"
+	oracleGeth "github.com/chronicleprotocol/oracle-suite/pkg/price/oracle/geth"
 	"github.com/chronicleprotocol/oracle-suite/pkg/spectre"
 	"github.com/chronicleprotocol/oracle-suite/pkg/transport"
 )
@@ -32,7 +33,7 @@ var spectreFactory = func(cfg spectre.Config) (*spectre.Spectre, error) {
 	return spectre.NewSpectre(cfg)
 }
 
-var datastoreFactory = func(cfg datastoreMemory.Config) (datastore.Datastore, error) {
+var datastoreFactory = func(cfg datastoreMemory.Config) (store.Datastore, error) {
 	return datastoreMemory.NewDatastore(cfg)
 }
 
@@ -50,7 +51,7 @@ type Medianizer struct {
 
 type Dependencies struct {
 	Signer         ethereum.Signer
-	Datastore      datastore.Datastore
+	Datastore      store.Datastore
 	EthereumClient ethereum.Client
 	Feeds          []ethereum.Address
 	Logger         log.Logger
@@ -82,7 +83,7 @@ func (c *Spectre) ConfigureSpectre(d Dependencies) (*spectre.Spectre, error) {
 	return spectreFactory(cfg)
 }
 
-func (c *Spectre) ConfigureDatastore(d DatastoreDependencies) (datastore.Datastore, error) {
+func (c *Spectre) ConfigureDatastore(d DatastoreDependencies) (store.Datastore, error) {
 	cfg := datastoreMemory.Config{
 		Signer:    d.Signer,
 		Transport: d.Transport,
