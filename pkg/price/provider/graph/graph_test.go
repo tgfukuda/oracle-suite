@@ -22,27 +22,28 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider/graph/feeder"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider/graph/nodes"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider/origins"
+
 	"github.com/chronicleprotocol/oracle-suite/pkg/log/null"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/feeder"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/nodes"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/origins"
 )
 
 var (
-	testGraph  map[gofer.Pair]nodes.Aggregator
+	testGraph  map[provider.Pair]nodes.Aggregator
 	testFeeder *feeder.Feeder
-	testPairs  = map[string]gofer.Pair{
+	testPairs  = map[string]provider.Pair{
 		"A/B": {Base: "A", Quote: "B"},
 		"X/Y": {Base: "X", Quote: "Y"},
 	}
 	testTime   = time.Now()
-	testModels = map[string]*gofer.Model{
+	testModels = map[string]*provider.Model{
 		"A/B": {
 			Type:       "median",
 			Parameters: map[string]string{},
 			Pair:       testPairs["A/B"],
-			Models: []*gofer.Model{
+			Models: []*provider.Model{
 				{
 					Type:       "origin",
 					Parameters: map[string]string{"origin": "a"},
@@ -53,7 +54,7 @@ var (
 					Type:       "median",
 					Parameters: map[string]string{},
 					Pair:       testPairs["A/B"],
-					Models: []*gofer.Model{
+					Models: []*provider.Model{
 						{
 							Type:       "origin",
 							Parameters: map[string]string{"origin": "a"},
@@ -74,7 +75,7 @@ var (
 			Type:       "median",
 			Parameters: map[string]string{},
 			Pair:       testPairs["X/Y"],
-			Models: []*gofer.Model{
+			Models: []*provider.Model{
 				{
 					Type:       "origin",
 					Parameters: map[string]string{"origin": "x"},
@@ -90,26 +91,26 @@ var (
 			},
 		},
 	}
-	testPrices = map[string]*gofer.Price{
+	testPrices = map[string]*provider.Price{
 		"A/B": {
 			Type: "aggregator",
 			Parameters: map[string]string{
 				"method":                   "median",
 				"minimumSuccessfulSources": "0",
 			},
-			Pair:      gofer.Pair{Base: "A", Quote: "B"},
+			Pair:      provider.Pair{Base: "A", Quote: "B"},
 			Price:     10,
 			Bid:       9,
 			Ask:       11,
 			Volume24h: 0,
 			Time:      testTime,
-			Prices: []*gofer.Price{
+			Prices: []*provider.Price{
 				{
 					Type: "origin",
 					Parameters: map[string]string{
 						"origin": "a",
 					},
-					Pair:      gofer.Pair{Base: "A", Quote: "B"},
+					Pair:      provider.Pair{Base: "A", Quote: "B"},
 					Price:     10,
 					Bid:       9,
 					Ask:       11,
@@ -122,19 +123,19 @@ var (
 						"method":                   "median",
 						"minimumSuccessfulSources": "0",
 					},
-					Pair:      gofer.Pair{Base: "A", Quote: "B"},
+					Pair:      provider.Pair{Base: "A", Quote: "B"},
 					Price:     10,
 					Bid:       9,
 					Ask:       11,
 					Volume24h: 0,
 					Time:      testTime,
-					Prices: []*gofer.Price{
+					Prices: []*provider.Price{
 						{
 							Type: "origin",
 							Parameters: map[string]string{
 								"origin": "a",
 							},
-							Pair:      gofer.Pair{Base: "A", Quote: "B"},
+							Pair:      provider.Pair{Base: "A", Quote: "B"},
 							Price:     10,
 							Bid:       9,
 							Ask:       11,
@@ -146,7 +147,7 @@ var (
 							Parameters: map[string]string{
 								"origin": "b",
 							},
-							Pair:      gofer.Pair{Base: "A", Quote: "B"},
+							Pair:      provider.Pair{Base: "A", Quote: "B"},
 							Price:     10,
 							Bid:       9,
 							Ask:       11,
@@ -163,19 +164,19 @@ var (
 				"method":                   "median",
 				"minimumSuccessfulSources": "0",
 			},
-			Pair:      gofer.Pair{Base: "X", Quote: "Y"},
+			Pair:      provider.Pair{Base: "X", Quote: "Y"},
 			Price:     10,
 			Bid:       9,
 			Ask:       11,
 			Volume24h: 0,
 			Time:      testTime,
-			Prices: []*gofer.Price{
+			Prices: []*provider.Price{
 				{
 					Type: "origin",
 					Parameters: map[string]string{
 						"origin": "x",
 					},
-					Pair:      gofer.Pair{Base: "X", Quote: "Y"},
+					Pair:      provider.Pair{Base: "X", Quote: "Y"},
 					Price:     10,
 					Bid:       9,
 					Ask:       11,
@@ -187,7 +188,7 @@ var (
 					Parameters: map[string]string{
 						"origin": "y",
 					},
-					Pair:      gofer.Pair{Base: "X", Quote: "Y"},
+					Pair:      provider.Pair{Base: "X", Quote: "Y"},
 					Price:     10,
 					Bid:       9,
 					Ask:       11,
@@ -239,7 +240,7 @@ func init() {
 	xyGraph.AddChild(xyc1)
 	xyGraph.AddChild(xyc2)
 
-	testGraph = map[gofer.Pair]nodes.Aggregator{
+	testGraph = map[provider.Pair]nodes.Aggregator{
 		ab: abGraph,
 		xy: xyGraph,
 	}
@@ -256,7 +257,7 @@ func TestGofer_Models_SinglePair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
 	r, err := g.Models(testPairs["A/B"])
 
-	assert.Equal(t, map[gofer.Pair]*gofer.Model{
+	assert.Equal(t, map[provider.Pair]*provider.Model{
 		testPairs["A/B"]: testModels["A/B"],
 	}, r)
 	assert.NoError(t, err)
@@ -266,7 +267,7 @@ func TestGofer_Models_AllPairs(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
 	r, err := g.Models()
 
-	assert.Equal(t, map[gofer.Pair]*gofer.Model{
+	assert.Equal(t, map[provider.Pair]*provider.Model{
 		testPairs["A/B"]: testModels["A/B"],
 		testPairs["X/Y"]: testModels["X/Y"],
 	}, r)
@@ -275,7 +276,7 @@ func TestGofer_Models_AllPairs(t *testing.T) {
 
 func TestGofer_Models_MissingPair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
-	_, err := g.Models(gofer.Pair{})
+	_, err := g.Models(provider.Pair{})
 
 	assert.True(t, errors.As(err, &ErrPairNotFound{}))
 }
@@ -290,7 +291,7 @@ func TestGofer_Price(t *testing.T) {
 
 func TestGofer_Price_MissingPair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
-	_, err := g.Price(gofer.Pair{})
+	_, err := g.Price(provider.Pair{})
 
 	assert.True(t, errors.As(err, &ErrPairNotFound{}))
 }
@@ -299,7 +300,7 @@ func TestGofer_Prices_SinglePair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
 	r, err := g.Prices(testPairs["A/B"])
 
-	assert.Equal(t, map[gofer.Pair]*gofer.Price{
+	assert.Equal(t, map[provider.Pair]*provider.Price{
 		testPairs["A/B"]: testPrices["A/B"],
 	}, r)
 	assert.NoError(t, err)
@@ -309,7 +310,7 @@ func TestGofer_Prices_AllPair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
 	r, err := g.Prices()
 
-	assert.Equal(t, map[gofer.Pair]*gofer.Price{
+	assert.Equal(t, map[provider.Pair]*provider.Price{
 		testPairs["A/B"]: testPrices["A/B"],
 		testPairs["X/Y"]: testPrices["X/Y"],
 	}, r)
@@ -318,7 +319,7 @@ func TestGofer_Prices_AllPair(t *testing.T) {
 
 func TestGofer_Prices_MissingPair(t *testing.T) {
 	g := NewGofer(testGraph, testFeeder)
-	_, err := g.Prices(gofer.Pair{})
+	_, err := g.Prices(provider.Pair{})
 
 	assert.True(t, errors.As(err, &ErrPairNotFound{}))
 }

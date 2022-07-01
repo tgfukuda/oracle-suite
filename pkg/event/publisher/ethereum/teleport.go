@@ -172,6 +172,9 @@ func (tl *TeleportListener) fetchLogs(ctx context.Context) {
 					continue
 				}
 				for _, l := range logs {
+					if l.Removed {
+						continue
+					}
 					if l.Address != address {
 						// This should never happen. All logs returned by
 						// eth_filterLogs should be emitted by the specified

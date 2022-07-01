@@ -20,31 +20,31 @@ import (
 
 	"github.com/stretchr/testify/mock"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider"
 )
 
 type Gofer struct {
 	mock.Mock
 }
 
-func (g *Gofer) Models(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Model, error) {
+func (g *Gofer) Models(pairs ...provider.Pair) (map[provider.Pair]*provider.Model, error) {
 	args := g.Called(interfaceSlice(pairs)...)
-	return args.Get(0).(map[gofer.Pair]*gofer.Model), args.Error(1)
+	return args.Get(0).(map[provider.Pair]*provider.Model), args.Error(1)
 }
 
-func (g *Gofer) Price(pair gofer.Pair) (*gofer.Price, error) {
+func (g *Gofer) Price(pair provider.Pair) (*provider.Price, error) {
 	args := g.Called(pair)
-	return args.Get(0).(*gofer.Price), args.Error(1)
+	return args.Get(0).(*provider.Price), args.Error(1)
 }
 
-func (g *Gofer) Prices(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Price, error) {
+func (g *Gofer) Prices(pairs ...provider.Pair) (map[provider.Pair]*provider.Price, error) {
 	args := g.Called(interfaceSlice(pairs)...)
-	return args.Get(0).(map[gofer.Pair]*gofer.Price), args.Error(1)
+	return args.Get(0).(map[provider.Pair]*provider.Price), args.Error(1)
 }
 
-func (g *Gofer) Pairs() ([]gofer.Pair, error) {
+func (g *Gofer) Pairs() ([]provider.Pair, error) {
 	args := g.Called()
-	return args.Get(0).([]gofer.Pair), args.Error(1)
+	return args.Get(0).([]provider.Pair), args.Error(1)
 }
 
 func interfaceSlice(slice interface{}) []interface{} {

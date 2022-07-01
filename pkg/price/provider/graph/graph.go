@@ -21,13 +21,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/feeder"
-	"github.com/chronicleprotocol/oracle-suite/pkg/price/gofer/graph/nodes"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider/graph/feeder"
+	"github.com/chronicleprotocol/oracle-suite/pkg/price/provider/graph/nodes"
 )
 
 type ErrPairNotFound struct {
-	Pair gofer.Pair
+	Pair provider.Pair
 }
 
 func (e ErrPairNotFound) Error() string {
@@ -37,24 +37,24 @@ func (e ErrPairNotFound) Error() string {
 // Gofer implements the gofer.Gofer interface. It uses a graph structure
 // to calculate pairs prices.
 type Gofer struct {
-	graphs map[gofer.Pair]nodes.Aggregator
+	graphs map[provider.Pair]nodes.Aggregator
 	feeder *feeder.Feeder
 }
 
 // NewGofer returns a new Gofer instance. If the Feeder is not nil,
 // then prices are automatically updated when the Price or Prices methods are
 // called. Otherwise, prices have to be updated externally.
-func NewGofer(graph map[gofer.Pair]nodes.Aggregator, feeder *feeder.Feeder) *Gofer {
+func NewGofer(graph map[provider.Pair]nodes.Aggregator, feeder *feeder.Feeder) *Gofer {
 	return &Gofer{graphs: graph, feeder: feeder}
 }
 
 // Models implements the gofer.Gofer interface.
-func (g *Gofer) Models(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Model, error) {
+func (g *Gofer) Models(pairs ...provider.Pair) (map[provider.Pair]*provider.Model, error) {
 	ns, err := g.findNodes(pairs...)
 	if err != nil {
 		return nil, err
 	}
-	res := make(map[gofer.Pair]*gofer.Model)
+	res := make(map[provider.Pair]*provider.Model)
 	for _, n := range ns {
 		if n, ok := n.(nodes.Aggregator); ok {
 			res[n.Pair()] = mapGraphNodes(n)
@@ -64,7 +64,7 @@ func (g *Gofer) Models(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Model, error)
 }
 
 // Price implements the gofer.Gofer interface.
-func (g *Gofer) Price(pair gofer.Pair) (*gofer.Price, error) {
+func (g *Gofer) Price(pair provider.Pair) (*provider.Price, error) {
 	n, ok := g.graphs[pair]
 	if !ok {
 		return nil, ErrPairNotFound{Pair: pair}
@@ -76,7 +76,7 @@ func (g *Gofer) Price(pair gofer.Pair) (*gofer.Price, error) {
 }
 
 // Prices implements the gofer.Gofer interface.
-func (g *Gofer) Prices(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Price, error) {
+func (g *Gofer) Prices(pairs ...provider.Pair) (map[provider.Pair]*provider.Price, error) {
 	ns, err := g.findNodes(pairs...)
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (g *Gofer) Prices(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Price, error)
 	if g.feeder != nil {
 		g.feeder.Feed(ns, time.Now())
 	}
-	res := make(map[gofer.Pair]*gofer.Price)
+	res := make(map[provider.Pair]*provider.Price)
 	for _, n := range ns {
 		if n, ok := n.(nodes.Aggregator); ok {
 			res[n.Pair()] = mapGraphPrice(n.Price())
@@ -94,8 +94,8 @@ func (g *Gofer) Prices(pairs ...gofer.Pair) (map[gofer.Pair]*gofer.Price, error)
 }
 
 // Pairs implements the gofer.Gofer interface.
-func (g *Gofer) Pairs() ([]gofer.Pair, error) {
-	var ps []gofer.Pair
+func (g *Gofer) Pairs() ([]provider.Pair, error) {
+	var ps []provider.Pair
 	for p := range g.graphs {
 		ps = append(ps, p)
 	}
@@ -104,7 +104,7 @@ func (g *Gofer) Pairs() ([]gofer.Pair, error) {
 
 // findNodes return root nodes for given pairs. If no nodes are specified,
 // then all root nodes are returned.
-func (g *Gofer) findNodes(pairs ...gofer.Pair) ([]nodes.Node, error) {
+func (g *Gofer) findNodes(pairs ...provider.Pair) ([]nodes.Node, error) {
 	var ns []nodes.Node
 	if len(pairs) == 0 { // Return all:
 		for _, n := range g.graphs {
@@ -122,8 +122,8 @@ func (g *Gofer) findNodes(pairs ...gofer.Pair) ([]nodes.Node, error) {
 	return ns, nil
 }
 
-func mapGraphNodes(n nodes.Node) *gofer.Model {
-	gn := &gofer.Model{
+func mapGraphNodes(n nodes.Node) *provider.Model {
+	gn := &provider.Model{
 		Type:       strings.TrimLeft(reflect.TypeOf(n).String(), "*"),
 		Parameters: make(map[string]string),
 	}
@@ -150,8 +150,8 @@ func mapGraphNodes(n nodes.Node) *gofer.Model {
 	return gn
 }
 
-func mapGraphPrice(t interface{}) *gofer.Price {
-	gt := &gofer.Price{
+func mapGraphPrice(t interface{}) *provider.Price {
+	gt := &provider.Price{
 		Parameters: make(map[string]string),
 	}
 
