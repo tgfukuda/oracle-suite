@@ -4,7 +4,7 @@
       "privKeySeed": "",
       "listenAddrs": ["/ip4/0.0.0.0/tcp/8000"],
       "bootstrapAddrs": [
-       		"/ip4/172.17.0.1/tcp/8000/p2p/12D3KooWN6rQ7Y7D7M2bQJqCV5837RBrKwyHroUUbhbP4xqQQNhY" 
+       		"/ip4/172.17.0.1/tcp/8000/p2p/12D3KooWHvb4nULc962XS1cG3yMnqSoi8wd94xUC62WG8YcjmFWi" 
       ],
       "directPeersAddrs": [],
       "blockedAddrs": [],

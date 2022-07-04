@@ -17,7 +17,7 @@ services:
     ports:
       [8000:8000]
 
-  spire-1:
+  spire:
     <<: *default
     volumes:
       - ./spire.json:/root/config.json
@@ -25,3 +25,12 @@ services:
       - /home/tfukuda/pass:/root/hush/pass
     ports:
       [8001:8000]
+
+  listener:
+    <<: *default
+    volumes:
+      - ./spire.json:/root/config.json
+      - /home/tfukuda/keystore:/root/hush/keystore
+      - /home/tfukuda/pass:/root/hush/pass
+    ports:
+      [8002:8000]
