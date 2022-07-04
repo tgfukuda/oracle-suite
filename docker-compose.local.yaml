@@ -1,0 +1,27 @@
+version: "3.8"
+
+x-spire: &default
+  image: spire:latest
+  build:
+    context: "."
+    dockerfile: Dockerfile-spire
+  tty: true
+  entrypoint: ["/bin/sh", "-c", "/usr/local/bin/spire -v debug -c config.json agent 1>trace.log 2>&1 & tail -f /dev/null"]
+
+services:
+  bootstrap:
+    <<: *default
+    volumes:
+      - ./boot.json:/root/config.json
+      - ./keystore:/root/hush/keystore
+    ports:
+      [8000:8000]
+
+  spire-1:
+    <<: *default
+    volumes:
+      - ./spire.json:/root/config.json
+      - /home/tfukuda/keystore:/root/hush/keystore
+      - /home/tfukuda/pass:/root/hush/pass
+    ports:
+      [8001:8000]

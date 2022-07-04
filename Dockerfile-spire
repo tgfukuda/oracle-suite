@@ -5,7 +5,8 @@ COPY . .
 RUN    export CGO_ENABLED=1 \
     && mkdir dist \
     && go mod vendor \
-    && go build -o dist/spire ./cmd/spire
+    && go build -o dist/spire ./cmd/spire \
+    && go build -o dist/toolbox ./cmd/toolbox
 
 FROM alpine:3.14
 RUN apk --no-cache add ca-certificates

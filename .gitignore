@@ -21,6 +21,8 @@
 
 # Output of the go coverage tool
 *.out
+/logs/
+/keystore/
 
 # Temporary and local files
 .tmp
